@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const port = process.env.port | 5000;
 const app = express();
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config()
 
 app.use(cors());
@@ -42,6 +42,27 @@ async function run() {
         app.get('/tasks', async (req, res) => {
             const result = await todoCollection.find().toArray();
             res.send(result);
+        })
+
+        // Delete todo
+        app.delete('/delete-todo/:id', async (req, res) => {
+            const query = { _id: new ObjectId(req.params.id) }
+            const result = await todoCollection.deleteOne(query)
+            res.send(result)
+        })
+
+        // Delete in progress
+        app.delete('/delete-progress/:id', async (req, res) => {
+            const query = { _id: new ObjectId(req.params.id) }
+            const result = await todoCollection.deleteOne(query)
+            res.send(result)
+        })
+
+        // Delete done tasks
+        app.delete('/delete-done/:id', async (req, res) => {
+            const query = { _id: new ObjectId(req.params.id) }
+            const result = await todoCollection.deleteOne(query)
+            res.send(result)
         })
 
 
