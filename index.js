@@ -67,6 +67,60 @@ async function run() {
 
 
 
+        // update todo
+        app.patch('/update-todo/:id', async (req, res) => {
+            const id = req.params.id;
+            const body = req.body;
+            const option = {
+                upsert: true,
+            }
+            const query = { _id: new ObjectId(id) }
+            const updatedDoc = {
+                $set: {
+                    options: 'Done'
+                }
+            }
+            const result = await todoCollection.updateOne(query, updatedDoc, option);
+            res.send(result);
+        })
+
+        // update progress
+        app.patch('/update-progress/:id', async (req, res) => {
+            const id = req.params.id;
+            const body = req.body;
+            const option = {
+                upsert: true,
+            }
+            const query = { _id: new ObjectId(id) }
+            const updatedDoc = {
+                $set: {
+                    options: 'Done'
+                }
+            }
+            const result = await todoCollection.updateOne(query, updatedDoc, option);
+            res.send(result);
+        })
+
+
+        // update done
+        app.patch('/update-done/:id', async (req, res) => {
+            const id = req.params.id;
+            const body = req.body;
+            const option = {
+                upsert: true,
+            }
+            const query = { _id: new ObjectId(id) }
+            const updatedDoc = {
+                $set: {
+                    options: 'Done'
+                }
+            }
+            const result = await todoCollection.updateOne(query, updatedDoc, option);
+            res.send(result);
+        })
+
+
+
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
